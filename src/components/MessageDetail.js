@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 
 const MessageDetail = ({messageList}) => {
