@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const MessageForm = ({loggedInUser, addMessage}) => {
+    const navigate = useNavigate()
     const initialFormData = {
         text: ""
     }
@@ -21,6 +23,7 @@ const MessageForm = ({loggedInUser, addMessage}) => {
             console.log(formData)
             addMessage(formData.text)
             cleanMessage()
+            navigate("/messages")
         }
         //adds the message to the list
         
