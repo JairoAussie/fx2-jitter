@@ -1,4 +1,4 @@
-import React, {useEffect, useState}from 'react'
+import React, {useEffect, useReducer, useState}from 'react'
 import LoginForm from './LoginForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
@@ -8,26 +8,48 @@ import initialMessageList from '../data/message-list.json'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import About from './About'
 import Notfound from './NotFound'
+import { reducer } from '../utils/reducer'
 
 const App = () => {
-  
+  //useReducer handles all the states in the same object
+  const initialState = {
+    messageList: [],
+    loggedInUser: ""
+  }
+  //useReducer receives two arguments
+  //reducer -> It is the function that is executed when...
+  //state
+  // it returns an array with two elements
+  // store -> actually that's the name for the state
+  // dispatch -> Is the function that triggers the reducer function, dispatch's argument is action
+  const [store, dispatch] = useReducer(reducer, initialState)
+  const {messageList, loggedInUser} = store
 
-  const [loggedInUser, setLoggedInUser] = useState("")
-  const [messageList, setMessageList] = useState([])
+  //const [loggedInUser, setLoggedInUser] = useState("")
+  //const [messageList, setMessageList] = useState([])
 
   const activateUser = (username) => {
-    setLoggedInUser(username)
+    //setLoggedInUser(username)
+    dispatch({
+      type: "setLoggedInUser",
+      data: username 
+    })
   }
 
   const addMessage = (text) => {
     const message = {
+      id: messageList[0].id + 1, //nextId(messageList)
       text: text,
       user: loggedInUser,
-      id: messageList[0].id + 1 //nextId(messageList)
+      
     }
-    setMessageList(
-      (messageList) => [message, ...messageList]
-    )
+    // setMessageList(
+    //   (messageList) => [message, ...messageList]
+    // )
+    dispatch({
+      type: "addMessage",
+      data: message
+    })
   }
     // thanks Lance
   // function nextId(data) {
@@ -44,7 +66,11 @@ const App = () => {
   useEffect(
     ()=>{
       //fetch
-      setMessageList(initialMessageList)
+      //setMessageList(initialMessageList)
+      dispatch({
+        type: "setMessageList",
+        data: initialMessageList
+      })
     }
     ,
     []
