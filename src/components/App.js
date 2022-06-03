@@ -10,7 +10,6 @@ import About from './About'
 import Notfound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
-import { Typography } from '@mui/material'
 //import axios from 'axios'
 
 const App = () => {
