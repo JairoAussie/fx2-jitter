@@ -10,6 +10,8 @@ import About from './About'
 import Notfound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
+import { Typography } from '@mui/material'
+//import axios from 'axios'
 
 const App = () => {
   //useReducer handles all the states in the same object
@@ -28,7 +30,18 @@ const App = () => {
 
   useEffect(
     ()=>{
-      //fetch
+      // fetch("http://localhost:4000/messages")
+      // .then(response => response.json())
+      // .then(data=> console.log(data))
+      // axios.get("http://localhost:4000/messages")
+      // .then(response => {
+      //   console.log(response.data)
+      //   dispatch({
+      //     type: "setMessageList",
+      //     data: response.data
+      //   })
+      // })
+
       //setMessageList(initialMessageList)
       dispatch({
         type: "setMessageList",
@@ -41,7 +54,6 @@ const App = () => {
 
   return (
     <div >
-          <h1>Jitter</h1>
 
         {/*Wrap all the components that use global states like loggedInUser and messageList in the state context provider*/}
         <StateContext.Provider value={{store, dispatch}}>
