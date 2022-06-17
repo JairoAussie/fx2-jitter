@@ -10,10 +10,16 @@ const Navigation = () => {
 
     const logout = (e) => {
         e.preventDefault()
+        sessionStorage.clear()
+        //sessionStorage.removeItem("username")
         dispatch({
             type: "setLoggedInUser",
-            data: "" 
-          })
+            data: null 
+        })
+        dispatch({
+            type: "setToken",
+            data: null 
+        })
         navigate("/messages")
     }
     
@@ -27,7 +33,7 @@ const Navigation = () => {
                     { loggedInUser && <Tab label="New message" component={Link} to="/messages/new" />}
                     { loggedInUser && <Tab label="Logout" onClick={logout} component={Link} to="/messages" />}
                     { !loggedInUser && <Tab label="Login" component={Link} to="/login" />}
-                    { !loggedInUser && <Tab label="Signup" component={Link} to="/login" />}
+                    { !loggedInUser && <Tab label="Signup" component={Link} to="/signup" />}
                 </Tabs>
                 
             </Toolbar>
