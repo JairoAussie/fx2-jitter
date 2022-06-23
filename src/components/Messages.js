@@ -4,6 +4,7 @@ import Message from './Message'
 const Messages = () => {
     const {store}= useGlobalState()
     const {messageList} = store
+    
     return (
         <>
             {messageList.map(message => 
