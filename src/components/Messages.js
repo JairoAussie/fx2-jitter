@@ -55,9 +55,9 @@ const Messages = () => {
         //setMessageList(initialMessageList)
         
       }
-      ,
+      , // eslint-disable-next-line react-hooks/exhaustive-deps
       [location] //it will trigger everytime location changes, checking the if statement
-    ) // eslint-disable-next-line
+    ) // eslint-disable-next-line react-hooks/exhaustive-deps
     
     return (
         <>
