@@ -10,8 +10,6 @@ const Messages = () => {
     const [error, setError] = useState(null)
     const location = useLocation()
     const params = useParams()
-    console.log(location)
-    console.log(params)
     useEffect(
       ()=>{
         if (location.pathname === "/messages/mymessages"){
@@ -26,7 +24,6 @@ const Messages = () => {
         } else if (params.username){
           getMessagesByUser(params.username)
           .then(messages => {
-            console.log(messages)
             if (messages.error){
               setError(`${params.username} doesn't exist`)
               dispatch({
@@ -45,7 +42,6 @@ const Messages = () => {
         }
         
         else{
-          console.log("after new message")
           getMessages()
           .then(messages => {
             dispatch({
