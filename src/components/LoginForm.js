@@ -13,26 +13,36 @@ const LoginForm = () => {
         password: ""
     }
     const [formData, setFormData] = useState(initialFormData)
+    const [error, setError] = useState(null)
 
     const handleSubmit = (e) =>{
         e.preventDefault()
         
         signIn(formData)
-        .then(({username, jwt}) => {
-            sessionStorage.setItem("username",  username)
-            sessionStorage.setItem("token", jwt)
-            dispatch({
-                type: "setLoggedInUser",
-                data: username
-            })
-            dispatch({
-                type: "setToken",
-                data: jwt
-            })
+        .then((user) => {
+            console.log(user)
+            if(user.error){
+                console.log("user.error", user.error)
+                setError(user.error)
+            }else{
+                setError(null)
+                sessionStorage.setItem("username",  user.username)
+                sessionStorage.setItem("token", user.jwt)
+                dispatch({
+                    type: "setLoggedInUser",
+                    data: user.username
+                })
+                dispatch({
+                    type: "setToken",
+                    data: user.jwt
+                })
+                setFormData(initialFormData)
+                navigate("/messages")
+            }
+            
         })
         
-        setFormData(initialFormData)
-        navigate("/messages")
+        
     }
 
     const handleFormData = (e) => {
@@ -44,6 +54,7 @@ const LoginForm = () => {
     return (
         <>  
             <Typography variant="h4">Log in user</Typography>
+            {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
                     <InputLabel>Email:</InputLabel>

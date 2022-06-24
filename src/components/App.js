@@ -32,17 +32,7 @@ const App = () => {
 
   useEffect(
     ()=>{
-      // fetch("http://localhost:4000/messages")
-      // .then(response => response.json())
-      // .then(data=> console.log(data))
-      // axios.get("http://localhost:4000/messages")
-      // .then(response => {
-      //   console.log(response.data)
-      //   dispatch({
-      //     type: "setMessageList",
-      //     data: response.data
-      //   })
-      // })
+ 
       getMessages()
         .then(messages => {
           dispatch({
@@ -78,6 +68,7 @@ const App = () => {
                   } />
                 <Route path=":messageId" element={<MessageDetail />} />
                 <Route path="mymessages" element={<Messages />} />
+                <Route path="user/:username" element={<Messages />} />
               </Route>
               <Route path="about" element={<About />} />
               <Route path="login" element={<LoginForm />} />

@@ -15,27 +15,43 @@ const SignupForm = () => {
         password_confirmation: ""
     }
     const [formData, setFormData] = useState(initialFormData)
+    const [error, setError] = useState(null)
 
     const handleSubmit = (e) =>{
         e.preventDefault()
         
         signUp(formData)
-          .then(({username, jwt}) => {
-            sessionStorage.setItem("username",  username)
-            sessionStorage.setItem("token", jwt)
-            dispatch({
-                type: "setLoggedInUser",
-                data: username
-            })
-            dispatch({
-                type: "setToken",
-                data: jwt
-            })
+          .then((user) => {
+            console.log(user)
+            let errorMessage = "";
+            if (user.error){
+                console.log(user.error)
+                // convert the object into a string
+                Object.keys(user.error).forEach(key => {
+                    //console.log(key, user.error[key])
+                    errorMessage = errorMessage.concat("", `${key} ${user.error[key]}`)
+                })
+                setError(errorMessage)
+            }
+            else {
+                sessionStorage.setItem("username",  user.username)
+                sessionStorage.setItem("token", user.jwt)
+                dispatch({
+                    type: "setLoggedInUser",
+                    data: user.username
+                })
+                dispatch({
+                    type: "setToken",
+                    data: user.jwt
+                })
+                setFormData(initialFormData)
+                navigate("/messages")
+            }
+            
         })
         .catch(e => {console.log(e)})
         
-        setFormData(initialFormData)
-        navigate("/messages")
+        
     }
 
     const handleFormData = (e) => {
@@ -47,6 +63,7 @@ const SignupForm = () => {
     return (
         <>
             <Typography variant='h4'>Register user</Typography>
+            {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
                     <InputLabel>Username:</InputLabel>

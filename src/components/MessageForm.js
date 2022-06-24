@@ -28,7 +28,7 @@ const MessageForm = () => {
             console.log(formData)
             addMessage(formData)
             cleanMessage()
-            navigate("/messages")
+            //navigate()
         }
         //adds the message to the list
         
@@ -36,13 +36,14 @@ const MessageForm = () => {
     
     const addMessage = (data) => {
     
-    createMessage(data)
-    .then(message => {
-        dispatch({
-            type: "addMessage",
-            data: message
-            })
-    })
+        createMessage(data)
+        .then(message => {
+            dispatch({
+                type: "addMessage",
+                data: message
+                })
+            navigate("/messages")
+        })
     
     }
 
