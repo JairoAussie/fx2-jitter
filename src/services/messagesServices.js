@@ -13,6 +13,11 @@ export async function createMessage(data){
     return response.data
 }
 
+export async function deleteMessage(id){
+    await jitterAPI.delete(`/messages/${id}`)
+    //return response.data
+}
+
 export async function getMyMessages(){
     const response = await jitterAPI.get('/messages/mymessages')
     //console.log(response.data)

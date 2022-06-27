@@ -39,6 +39,16 @@ export const reducer = (state, action) => {
                 messageList: [action.data, ...state.messageList]
             }
         }
+
+        case "deleteMessage": {
+
+            let updatedList = state.messageList.filter(message => message.id !== parseInt(action.data))
+
+            return {
+                ...state,
+                messageList: updatedList
+            }
+        }
         case "setLoggedInUser": {
             //updates the loggedInUser value
             return {
