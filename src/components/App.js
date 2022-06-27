@@ -1,23 +1,24 @@
-import React, {useEffect, useReducer}from 'react'
+import React, {useReducer}from 'react'
 import LoginForm from './LoginForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
 import MessageDetail from './MessageDetail'
 import Navigation from './Navigation'
-import initialMessageList from '../data/message-list.json'
+//import initialMessageList from '../data/message-list.json'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import About from './About'
 import Notfound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
-import { Typography } from '@mui/material'
+import SignupForm from './SignupForm'
 //import axios from 'axios'
 
 const App = () => {
   //useReducer handles all the states in the same object
   const initialState = {
     messageList: [],
-    loggedInUser: ""
+    loggedInUser: sessionStorage.getItem("username") || null,
+    token: sessionStorage.getItem("token") || null
   }
   //useReducer receives two arguments
   //reducer -> It is the function that is executed when...
@@ -28,29 +29,6 @@ const App = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const {loggedInUser} = store
 
-  useEffect(
-    ()=>{
-      // fetch("http://localhost:4000/messages")
-      // .then(response => response.json())
-      // .then(data=> console.log(data))
-      // axios.get("http://localhost:4000/messages")
-      // .then(response => {
-      //   console.log(response.data)
-      //   dispatch({
-      //     type: "setMessageList",
-      //     data: response.data
-      //   })
-      // })
-
-      //setMessageList(initialMessageList)
-      dispatch({
-        type: "setMessageList",
-        data: initialMessageList
-      })
-    }
-    ,
-    []
-  )
 
   return (
     <div >
@@ -71,9 +49,12 @@ const App = () => {
                     <Navigate to="/login" />
                   } />
                 <Route path=":messageId" element={<MessageDetail />} />
+                <Route path="mymessages" element={<Messages />} />
+                <Route path="user/:username" element={<Messages />} />
               </Route>
               <Route path="about" element={<About />} />
               <Route path="login" element={<LoginForm />} />
+              <Route path="signup" element={<SignupForm />} />
               <Route path="*" element={<Notfound />} /> {/* for everything else routes render notFound component*/}
             </Routes>
           </Router>

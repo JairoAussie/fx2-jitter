@@ -20,7 +20,8 @@ const MessageDetail = () => {
                 <Card>
                     <CardContent>
                         <Typography variant='h5'>{message.text}</Typography>
-                        <Typography variant='p'>{message.user}</Typography>
+                        <Typography variant='p'>{message.username}</Typography>
+                        <Typography variant='p'>{message.posted}</Typography>
                     </CardContent>    
                 </Card>
                 :
