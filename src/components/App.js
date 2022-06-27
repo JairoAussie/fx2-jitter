@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer}from 'react'
+import React, {useReducer}from 'react'
 import LoginForm from './LoginForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
@@ -10,7 +10,6 @@ import About from './About'
 import Notfound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
-import { getMessages } from '../services/messagesServices'
 import SignupForm from './SignupForm'
 //import axios from 'axios'
 
@@ -30,23 +29,6 @@ const App = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const {loggedInUser} = store
 
-  useEffect(
-    ()=>{
- 
-      getMessages()
-        .then(messages => {
-          dispatch({
-            type: "setMessageList",
-            data: messages
-          })
-        })
-        .catch(e=> {console.log(e)})
-      //setMessageList(initialMessageList)
-      
-    }
-    ,
-    []
-  )
 
   return (
     <div >

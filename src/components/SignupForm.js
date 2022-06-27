@@ -25,7 +25,7 @@ const SignupForm = () => {
             console.log(user)
             let errorMessage = "";
             if (user.error){
-                console.log(user.error)
+                // console.log(user.error)
                 // convert the object into a string
                 Object.keys(user.error).forEach(key => {
                     //console.log(key, user.error[key])

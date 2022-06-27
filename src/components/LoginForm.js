@@ -20,7 +20,7 @@ const LoginForm = () => {
         
         signIn(formData)
         .then((user) => {
-            console.log(user)
+            // console.log(user)
             if(user.error){
                 console.log("user.error", user.error)
                 setError(user.error)
